@@ -10,7 +10,7 @@ Google developer docs can be found [here](https://developers.google.com/analytic
 
 This is available via Packagist. You can install this by adding a dependency in your `composer.json` file.
 
-```conf
+```json
 {
     "require": {
         "fideloper/universalanalytics": "dev-master"
