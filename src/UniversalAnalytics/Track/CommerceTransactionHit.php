@@ -1,13 +1,10 @@
-<?php namespace UnivseralAnalytics\Track;
+<?php namespace UniversalAnalytics\Track;
 
 class CommerceTransactionHit extends Entity {
 
     protected $shortName = 'commercetrans';
 
     protected $attributes = array(
-        'version' => null,
-        'tracking_id' => null,
-        'client_id' => null,
         'type' => 'transaction',
         'id' => null,
         'affiliation' => null,
@@ -18,9 +15,6 @@ class CommerceTransactionHit extends Entity {
     );
 
     protected $googleAttributes = array(
-        'v' => null,
-        'tid' => null,
-        'cid' => null,
         't' => 'transaction',
         'ti' => null,
         'ta' => null,

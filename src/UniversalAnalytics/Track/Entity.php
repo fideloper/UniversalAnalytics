@@ -1,7 +1,7 @@
-<?php namespace UnivseralAnalytics\Track;
+<?php namespace UniversalAnalytics\Track;
 
-use UnivseralAnalytics\Contracts\JsonableInterface;
-use UnivseralAnalytics\Contracts\ArrayableInterface;
+use UniversalAnalytics\Contracts\JsonableInterface;
+use UniversalAnalytics\Contracts\ArrayableInterface;
 
 abstract class Entity implements ArrayableInterface, JsonableInterface {
 
@@ -29,9 +29,6 @@ abstract class Entity implements ArrayableInterface, JsonableInterface {
     protected $googleAttributes = array();
 
     protected $attributeMap = array(
-        'version' => 'v',
-        'tracking_id' => 'tid',
-        'client_id' => 'cid',
         'type' => 't',
 
         /* Page */
@@ -71,7 +68,7 @@ abstract class Entity implements ArrayableInterface, JsonableInterface {
         /* Exception */
         'exception:description' => 'exd',
         'exception:fatal' => 'exf',
-        
+
         /* User Timing */
         'user:category' => 'utc',
         'user:variable' => 'utv',
@@ -94,7 +91,7 @@ abstract class Entity implements ArrayableInterface, JsonableInterface {
      * Add object attributes via array
      *
      * @param Array     Key => Value array of attributes
-     * @access protected
+     * @return Entity
      */
     public function build(Array $data)
     {
@@ -102,6 +99,8 @@ abstract class Entity implements ArrayableInterface, JsonableInterface {
         {
             $this->$key = $value;
         }
+
+        return $this;
     }
 
     /**
