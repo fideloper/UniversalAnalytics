@@ -2,6 +2,7 @@
 
 use Buzz\Browser;
 use Buzz\Message\RequestInterface;
+use Buzz\Client\Curl;
 use UniversalAnalytics\Track\Entity;
 
 class Request {
@@ -25,7 +26,7 @@ class Request {
         'cid' => null,
     );
 
-    public function __construct(Array $attributes=null)
+    public function __construct(Array $attributes)
     {
         if( is_null($attributes) === false )
         {
@@ -61,64 +62,15 @@ class Request {
         // This will add to the attributes array
         $this->build($entity->toArray(true));
 
+        // Validation hurrr
+        // 1. Require the v, tid, cid and t parameters (job of this class to validate)
+        // 2. Require the specific *required* parameters per tracking entity (job of the entity to validate)
+
 		$buzzBrowser = new Browser;
+        $buzzBrowser->setClient( new Curl );
 		$buzzResponse = $buzzBrowser->submit($this->base, $this->attributes, RequestInterface::METHOD_POST, array());
 
         return new Response($buzzResponse);
 	}
-
-    /**
-     * Version 't' getter/setter
-     *
-     * @param String    API Version
-     * @return Request
-     */
-    public function version($version=null)
-    {
-        if( is_null($version) )
-        {
-            return $this->attributes['v'];
-        }
-
-        $this->attributes['v'] = $version;
-
-        return $this;
-    }
-
-    /**
-     * Tracking ID 'tid' getter/setter
-     *
-     * @param String    Tracking ID
-     * @return Request
-     */
-    public function trackingid($trackingid=null)
-    {
-        if( is_null($version) )
-        {
-            return $this->attributes['tid'];
-        }
-
-        $this->attributes['tid'] = $version;
-
-        return $this;
-    }
-
-    /**
-     * Client anonymous ID 'cid' getter/setter
-     *
-     * @param String    Client ID
-     * @return Request
-     */
-    public function clientid($clientid=null)
-    {
-        if( is_null($version) )
-        {
-            return $this->attributes['cid'];
-        }
-
-        $this->attributes['cid'] = $version;
-
-        return $this;
-    }
 
 }

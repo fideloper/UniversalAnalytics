@@ -10,7 +10,7 @@ class Response {
     {
         if( is_null($response) === false )
         {
-            $this->setCoreResponse($response)
+            $this->setCoreResponse($response);
         }
 
     }
