@@ -44,3 +44,4 @@ dwsync.xml
 
 # Composer stuff
 vendor
+composer.lock
