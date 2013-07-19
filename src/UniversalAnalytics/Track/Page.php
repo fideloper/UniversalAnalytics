@@ -1,4 +1,4 @@
-<?php namespace UnivseralAnalytics\Track;
+<?php namespace UniversalAnalytics\Track;
 
 class Page extends Entity {
 

@@ -1,4 +1,4 @@
-<?php namespace UnivseralAnalytics\Contracts;
+<?php namespace UniversalAnalytics\Contracts;
 
 interface ArrayableInterface {
 

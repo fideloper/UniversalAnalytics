@@ -1,13 +1,13 @@
-<?php namespace UnivseralAnalytics;
+<?php namespace UniversalAnalytics;
 
-use UnivseralAnalytics\Track\Entity;
-use UnivseralAnalytics\Track\Event;
-use UnivseralAnalytics\Track\Page;
-use UnivseralAnalytics\Track\CommerceTransactionHit;
-use UnivseralAnalytics\Track\CommerceItemHit;
-use UnivseralAnalytics\Track\SocialInteraction;
-use UnivseralAnalytics\Track\Exception;
-use UnivseralAnalytics\Track\UserTiming;
+use UniversalAnalytics\Track\Entity;
+use UniversalAnalytics\Track\Event;
+use UniversalAnalytics\Track\Page;
+use UniversalAnalytics\Track\CommerceTransactionHit;
+use UniversalAnalytics\Track\CommerceItemHit;
+use UniversalAnalytics\Track\SocialInteraction;
+use UniversalAnalytics\Track\Exception;
+use UniversalAnalytics\Track\UserTiming;
 
 class UA {
 

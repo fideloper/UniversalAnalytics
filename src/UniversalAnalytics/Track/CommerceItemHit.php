@@ -1,4 +1,4 @@
-<?php namespace UnivseralAnalytics\Track;
+<?php namespace UniversalAnalytics\Track;
 
 class CommerceItemHit extends Entity {
 

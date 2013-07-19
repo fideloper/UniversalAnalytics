@@ -1,7 +1,7 @@
-<?php namespace UnivseralAnalytics\Track;
+<?php namespace UniversalAnalytics\Track;
 
-use UnivseralAnalytics\Contracts\JsonableInterface;
-use UnivseralAnalytics\Contracts\ArrayableInterface;
+use UniversalAnalytics\Contracts\JsonableInterface;
+use UniversalAnalytics\Contracts\ArrayableInterface;
 
 abstract class Entity implements ArrayableInterface, JsonableInterface {
 
