@@ -1,13 +1,10 @@
-<?php namespace UnivseralAnalytics\Track;
+<?php namespace UniversalAnalytics\Track;
 
 class Event extends Entity {
 
     protected $shortName = 'event';
 
     protected $attributes = array(
-        'version' => null,
-        'tracking_id' => null,
-        'client_id' => null,
         'type' => 'event',
         'category' => null,
         'action' => null,
@@ -16,9 +13,6 @@ class Event extends Entity {
     );
 
     protected $googleAttributes = array(
-        'v' => null,
-        'tid' => null,
-        'cid' => null,
         't' => 'event',
         'ec' => null,
         'ea' => null,
