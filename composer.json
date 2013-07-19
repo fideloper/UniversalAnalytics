@@ -1,0 +1,20 @@
+{
+    "name": "fideloper/universalanalytics",
+    "description": "Implement Google's Measurement Protocol on the Server Side",
+    "require": {
+        "kriswallsmith/buzz": "dev-master"
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Chris Fidao",
+            "email": "fideloper@gmail.com"
+        }
+    ],
+    "minimum-stability": "stable",
+    "autoload": {
+        "psr-0": {
+	    "UniversalAnalytics": "app/lib"
+        }
+    }
+}
