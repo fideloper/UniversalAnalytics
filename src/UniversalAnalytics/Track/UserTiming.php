@@ -5,9 +5,6 @@ class UserTiming extends Entity {
     protected $shortName = 'user';
 
     protected $attributes = array(
-        'version' => null,
-        'tracking_id' => null,
-        'client_id' => null,
         'type' => 'timing',
         'category' => null,
         'variable' => null,
@@ -16,9 +13,6 @@ class UserTiming extends Entity {
     );
 
     protected $googleAttributes = array(
-        'v' => null,
-        'tid' => null,
-        'cid' => null,
         't' => 'timing',
         'utc' => null,
         'utv' => null,
