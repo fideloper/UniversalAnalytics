@@ -118,7 +118,7 @@ class UA {
     {
         if( is_null($current) )
         {
-            return $this->current = $current;
+            return $this->current;
         }
 
         $this->current = $current;
