@@ -134,7 +134,7 @@ abstract class Entity implements ArrayableInterface, JsonableInterface {
 
             $this->googleAttributes[$this->attributeMap[$this->shortName.':'.$key]] = $value;
         } else {
-            throw new \InvalidArgumentException('Invalid attribute "'.$key.'" passed to '.get_class($this).'.');
+            throw new \OutOfBoundsException('Invalid attribute "'.$key.'" passed to '.get_class($this).'.');
         }
     }
 
