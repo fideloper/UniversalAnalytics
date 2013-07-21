@@ -1,6 +1,8 @@
 <?php namespace UniversalAnalytics\Track;
 
-class UserTiming extends Entity {
+use UniversalAnalytics\Contracts\ValidableInterface;
+
+class UserTiming extends Entity implements ValidableInterface {
 
     protected $shortName = 'user';
 
@@ -19,5 +21,10 @@ class UserTiming extends Entity {
         'utt' => null,
         'utl' => null,
     );
+
+    public function valid()
+    {
+        return true;
+    }
 
 }

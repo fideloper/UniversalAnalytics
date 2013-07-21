@@ -1,21 +1,33 @@
 <?php namespace UniversalAnalytics\Track;
 
-class SocialInteraction extends Entity {
+use UniversalAnalytics\Contracts\ValidableInterface;
+
+class SocialInteraction extends Entity implements ValidableInterface {
 
     protected $shortName = 'social';
 
     protected $attributes = array(
         'type' => 'social',
-        'action' => null,
-        'network' => null,
-        'target' => null,
+        'action' => null, /* Required */
+        'network' => null, /* Required */
+        'target' => null, /* Required */
     );
 
     protected $googleAttributes = array(
         't' => 'social',
-        'sa' => null,
-        'sn' => null,
-        'st' => null,
+        'sa' => null, /* Required */
+        'sn' => null, /* Required */
+        'st' => null, /* Required */
     );
+
+    public function valid()
+    {
+        if( is_null($this->action) || is_null($this->network) || is_null($this->target) )
+        {
+            return false;
+        }
+
+        return true;
+    }
 
 }
