@@ -1,13 +1,15 @@
 <?php namespace UniversalAnalytics\Track;
 
-class CommerceItemHit extends Entity {
+use UniversalAnalytics\Contracts\ValidableInterface;
+
+class CommerceItemHit extends Entity implements ValidableInterface {
 
     protected $shortName = 'commerceitem';
 
     protected $attributes = array(
         'type' => 'item',
-        'id' => null,
-        'name' => null,
+        'id' => null, /* Required */
+        'name' => null, /* Required */
         'price' => null,
         'quantity' => null,
         'code' => null,
@@ -17,13 +19,23 @@ class CommerceItemHit extends Entity {
 
     protected $googleAttributes = array(
         't' => 'item',
-        'ti' => null,
-        'in' => null,
+        'ti' => null, /* Required */
+        'in' => null, /* Required */
         'ip' => null,
         'iq' => null,
         'ic' => null,
         'iv' => null,
         'cu' => null,
     );
+
+    public function valid()
+    {
+        if( is_null($this->id) || is_null($this->name) )
+        {
+            return false;
+        }
+
+        return true;
+    }
 
 }

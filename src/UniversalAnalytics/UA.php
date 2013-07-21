@@ -11,6 +11,11 @@ use UniversalAnalytics\Track\UserTiming;
 
 class UA {
 
+    /**
+     * Current set entity
+     *
+     * @access protected
+     */
     private $current;
 
     /**
@@ -37,7 +42,7 @@ class UA {
      * Add object attributes via array
      *
      * @param Array     Key => Value array of attributes
-     * @return Request
+     * @return UniversalAnalytics\UA
      */
     public function build(Array $data)
     {
@@ -53,7 +58,7 @@ class UA {
      * Version 't' getter/setter
      *
      * @param String    API Version
-     * @return Request
+     * @return UniversalAnalytics\UA
      */
     public function version($version=null)
     {
@@ -71,16 +76,16 @@ class UA {
      * Tracking ID 'tid' getter/setter
      *
      * @param String    Tracking ID
-     * @return Request
+     * @return UniversalAnalytics\UA
      */
     public function trackingid($trackingid=null)
     {
-        if( is_null($version) )
+        if( is_null($trackingid) )
         {
             return $this->attributes['tid'];
         }
 
-        $this->attributes['tid'] = $version;
+        $this->attributes['tid'] = $trackingid;
 
         return $this;
     }
@@ -89,16 +94,34 @@ class UA {
      * Client anonymous ID 'cid' getter/setter
      *
      * @param String    Client ID
-     * @return Request
+     * @return UniversalAnalytics\UA
      */
     public function clientid($clientid=null)
     {
-        if( is_null($version) )
+        if( is_null($clientid) )
         {
             return $this->attributes['cid'];
         }
 
-        $this->attributes['cid'] = $version;
+        $this->attributes['cid'] = $clientid;
+
+        return $this;
+    }
+
+    /**
+     * Get or Set current Entity
+     *
+     * @param UniversalAnalytics\Track\Entity
+     * @return UniversalAnalytics\UA
+     */
+    public function current(Entity $current=null)
+    {
+        if( is_null($current) )
+        {
+            return $this->current;
+        }
+
+        $this->current = $current;
 
         return $this;
     }
@@ -158,17 +181,20 @@ class UA {
 /**************************************************************
 **************************************************************/
 
-    public function send(Entity $track=null)
+    /**
+     * Track entity
+     *
+     * @param UniversalAnalytics\Track\Entity
+     * @return UniversalAnalytics\Request
+     */
+    public function track(Entity $track=null)
     {
         if( is_null($track) )
         {
             $track = $this->current;
         }
 
-        $request = new Request($this->attributes);
-        $response = $request->send($track);
-
-        return $response;
+        return new Request($this->attributes, $track);
     }
 
 }
