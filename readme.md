@@ -43,7 +43,27 @@ $event->action = 'Play';
 $event->label = 'Cat Video 42';
 $event->value = '0';
 
-$response = $ua->send($event);
+$request = $ua->track($event);
+$response = $request->send();
+```
+
+Alternatively, there's a slightly easier implementation:
+
+```php
+$ua = new \UniversalAnalytics\UA(array(
+    'v' => 1,
+    'tid' => 'UX-XXXX-XXX',
+    'cid' => 555,
+));
+
+$request = $ua->event(array(
+    'category' => 'Video',
+    'action' => 'Play',
+    'label' => 'Cat Video 42',
+    'value' => '0',
+))->track();
+
+$response = $request->send();
 ```
 
 ## Laravel 4
@@ -67,7 +87,7 @@ return array(
 Then in your Laravel code, perhaps a `start.php` file:
 
 ```php
-App::bind('ga', function() {
+App::bind('ua', function() {
     return new \UniversalAnalytics\UA(array(
         'v' => 1, // This likely won't change anytime soon
         'tid' => Config::get('ga.trackingid')
@@ -76,22 +96,23 @@ App::bind('ga', function() {
 
 // Later, somewhere in your code...
 
-$ga = App::make('ga');
+$ua = App::make('ua');
 
-$ga->client(Auth::user()->id); // Pass in some sort of session-based user id
+$ua->client(Auth::user()->id); // Pass in some sort of session-based user id
 
-$event = new \UniversalAnalytics\Track\Event;
-$event->category = 'Video';
-$event->action = 'Play';
-$event->label = 'Cat Video 42';
-$event->value = '0';
+$request = $ua->event(array(
+    'category' => 'Video',
+    'action' => 'Play',
+    'label' => 'Cat Video 42',
+    'value' => '0',
+))->track();
 
-$response = $ua->send($event);
+$response = $request->send();
 ```
 
 ### Using the Laravel Facade
 
-MORE STUFF COMING
+Implementation coming soon
 
 ## Notes
 
