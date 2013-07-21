@@ -11,6 +11,11 @@ use UniversalAnalytics\Track\UserTiming;
 
 class UA {
 
+    /**
+     * Current set entity
+     *
+     * @access protected
+     */
     private $current;
 
     /**
@@ -158,6 +163,12 @@ class UA {
 /**************************************************************
 **************************************************************/
 
+    /**
+     * Track entity
+     *
+     * @param UniversalAnalytics\Track\Entity
+     * @return UniversalAnalytics\Request
+     */
     public function track(Entity $track=null)
     {
         if( is_null($track) )
