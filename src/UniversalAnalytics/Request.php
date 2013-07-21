@@ -5,6 +5,7 @@ use Buzz\Message\RequestInterface;
 use Buzz\Client\Curl;
 use UniversalAnalytics\Track\Entity;
 use UniversalAnalytics\Contracts\ValidableInterface;
+use UniversalAnalytics\Exception\InvalidRequestException;
 
 
 class Request implements ValidableInterface {
@@ -61,13 +62,14 @@ class Request implements ValidableInterface {
      * Send request and generate response
      *
      * @param Entity
+     * @throws UniversalAnalytics\Exception\InvalidRequestException
      * @return Response
      */
 	public function send()
 	{
         if( $this->valid() === false )
         {
-            throw new \DomainException('Invalid Request, ensure required fields are set');
+            throw new InvalidRequestException('Invalid Request, ensure required fields are set');
         }
 
         $this->build($this->entity->toArray(true));

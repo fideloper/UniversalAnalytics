@@ -2,6 +2,7 @@
 
 use UniversalAnalytics\Contracts\JsonableInterface;
 use UniversalAnalytics\Contracts\ArrayableInterface;
+use UniversalAnalytics\Exception\InvalidAttributeException;
 
 abstract class Entity implements ArrayableInterface, JsonableInterface {
 
@@ -124,7 +125,7 @@ abstract class Entity implements ArrayableInterface, JsonableInterface {
      *
      * @param String    Name of attribute
      * @param Mixed     Value of attribute
-     * @throws InvalidArgumentException     If attribute $key does not exist
+     * @throws UniversalAnalytics\Exception\InvalidAttributeException
      */
     public function __set($key, $value)
     {
@@ -134,7 +135,7 @@ abstract class Entity implements ArrayableInterface, JsonableInterface {
 
             $this->googleAttributes[$this->attributeMap[$this->shortName.':'.$key]] = $value;
         } else {
-            throw new \OutOfBoundsException('Invalid attribute "'.$key.'" passed to '.get_class($this).'.');
+            throw new InvalidAttributeException('Invalid attribute "'.$key.'" passed to '.get_class($this).'.');
         }
     }
 
