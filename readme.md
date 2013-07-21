@@ -92,3 +92,7 @@ $response = $ua->send($event);
 ### Using the Laravel Facade
 
 MORE STUFF COMING
+
+## Notes
+
+1. Make "required" functionality less manual with a "required attributes" array which can be used to check if required fields are non-null values. `Entity::valid()` can then be added to abstract class.
