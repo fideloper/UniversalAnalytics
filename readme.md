@@ -1,5 +1,11 @@
 # Google Universal Analytics - Measurement Protocol
 
+Master: [![Build Status](https://travis-ci.org/fideloper/UniversalAnalytics.png?branch=master)](https://travis-ci.org/fideloper/UniversalAnalytics)
+
+Develop: [![Build Status](https://travis-ci.org/fideloper/UniversalAnalytics.png?branch=develop)](https://travis-ci.org/fideloper/UniversalAnalytics)
+
+---
+
 This implements Google's [Measurement Protocol](https://developers.google.com/analytics/devguides/collection/protocol/v1/). This protocol is a REST api which you can use to send data from your client or server side.
 
 This is a server-side implementation, which you might want to use to send analytics to Google that's related to your application - server metrics, exception tracking, etc.
