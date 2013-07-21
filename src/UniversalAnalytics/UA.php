@@ -11,6 +11,11 @@ use UniversalAnalytics\Track\UserTiming;
 
 class UA {
 
+    /**
+     * Current set entity
+     *
+     * @access protected
+     */
     private $current;
 
     /**
@@ -158,17 +163,20 @@ class UA {
 /**************************************************************
 **************************************************************/
 
-    public function send(Entity $track=null)
+    /**
+     * Track entity
+     *
+     * @param UniversalAnalytics\Track\Entity
+     * @return UniversalAnalytics\Request
+     */
+    public function track(Entity $track=null)
     {
         if( is_null($track) )
         {
             $track = $this->current;
         }
 
-        $request = new Request($this->attributes);
-        $response = $request->send($track);
-
-        return $response;
+        return new Request($this->attributes, $track);
     }
 
 }

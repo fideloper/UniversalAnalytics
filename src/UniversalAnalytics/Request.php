@@ -4,8 +4,10 @@ use Buzz\Browser;
 use Buzz\Message\RequestInterface;
 use Buzz\Client\Curl;
 use UniversalAnalytics\Track\Entity;
+use UniversalAnalytics\Contracts\ValidableInterface;
 
-class Request {
+
+class Request implements ValidableInterface {
 
     /**
      * Base URL for UA api
@@ -26,12 +28,17 @@ class Request {
         'cid' => null,
     );
 
-    public function __construct(Array $attributes)
+    /**
+     * UniversalAnalytics\Track\Entity
+     *
+     * @access protected
+     */
+    protected $entity;
+
+    public function __construct(Array $attributes, Entity $entity)
     {
-        if( is_null($attributes) === false )
-        {
-            $this->build($attributes);
-        }
+        $this->build($attributes);
+        $this->entity = $entity;
     }
 
     /**
@@ -56,15 +63,14 @@ class Request {
      * @param Entity
      * @return Response
      */
-	public function send(Entity $entity)
+	public function send()
 	{
-        // Build from Entity, using google attributes
-        // This will add to the attributes array
-        $this->build($entity->toArray(true));
+        if( $this->valid() === false )
+        {
+            throw new \DomainException('Invalid Request, ensure required fields are set');
+        }
 
-        // Validation hurrr
-        // 1. Require the v, tid, cid and t parameters (job of this class to validate)
-        // 2. Require the specific *required* parameters per tracking entity (job of the entity to validate)
+        $this->build($this->entity->toArray(true));
 
 		$buzzBrowser = new Browser;
         $buzzBrowser->setClient( new Curl );
@@ -72,5 +78,21 @@ class Request {
 
         return new Response($buzzResponse);
 	}
+
+    /**
+     * Validate Request
+     *
+     * @return Bool
+     */
+    public function valid()
+    {
+        if( is_null($this->attributes['v']) || is_null($this->attributes['tid']) || is_null($this->attributes['cid']) )
+        {
+            return false;
+        }
+
+        // This will pass TRUE or FALSE
+        return $this->entity->valid();
+    }
 
 }

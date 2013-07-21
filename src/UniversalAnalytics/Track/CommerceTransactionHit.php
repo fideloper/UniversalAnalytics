@@ -1,12 +1,14 @@
 <?php namespace UniversalAnalytics\Track;
 
-class CommerceTransactionHit extends Entity {
+use UniversalAnalytics\Contracts\ValidableInterface;
+
+class CommerceTransactionHit extends Entity implements ValidableInterface {
 
     protected $shortName = 'commercetrans';
 
     protected $attributes = array(
         'type' => 'transaction',
-        'id' => null,
+        'id' => null, /* Required */
         'affiliation' => null,
         'revenue' => null,
         'shipping' => null,
@@ -16,12 +18,22 @@ class CommerceTransactionHit extends Entity {
 
     protected $googleAttributes = array(
         't' => 'transaction',
-        'ti' => null,
+        'ti' => null, /* Required */
         'ta' => null,
         'tr' => null,
         'ts' => null,
         'tt' => null,
         'cu' => null,
     );
+
+    public function valid()
+    {
+        if( is_null($this->id) )
+        {
+            return false;
+        }
+
+        return true;
+    }
 
 }

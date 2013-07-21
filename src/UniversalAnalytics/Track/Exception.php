@@ -1,6 +1,8 @@
 <?php namespace UniversalAnalytics\Track;
 
-class Exception extends Entity {
+use UniversalAnalytics\Contracts\ValidableInterface;
+
+class Exception extends Entity implements ValidableInterface {
 
     protected $shortName = 'exception';
 
@@ -15,5 +17,10 @@ class Exception extends Entity {
         'exd' => null,
         'exf' => null,
     );
+
+    public function valid()
+    {
+        return true;
+    }
 
 }

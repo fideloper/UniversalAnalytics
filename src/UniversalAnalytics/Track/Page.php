@@ -1,6 +1,8 @@
 <?php namespace UniversalAnalytics\Track;
 
-class Page extends Entity {
+use UniversalAnalytics\Contracts\ValidableInterface;
+
+class Page extends Entity implements ValidableInterface {
 
     protected $shortName = 'page';
 
@@ -17,5 +19,10 @@ class Page extends Entity {
         'dp' => null,
         'dt' => null,
     );
+
+    public function valid()
+    {
+        return true;
+    }
 
 }
