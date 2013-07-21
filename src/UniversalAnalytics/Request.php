@@ -26,12 +26,10 @@ class Request {
         'cid' => null,
     );
 
-    public function __construct(Array $attributes)
+    public function __construct(Array $attributes, Entity $entity)
     {
-        if( is_null($attributes) === false )
-        {
-            $this->build($attributes);
-        }
+        $this->build($attributes);
+        $this->build($entity->toArray());
     }
 
     /**
@@ -56,12 +54,8 @@ class Request {
      * @param Entity
      * @return Response
      */
-	public function send(Entity $entity)
+	public function send()
 	{
-        // Build from Entity, using google attributes
-        // This will add to the attributes array
-        $this->build($entity->toArray(true));
-
         // Validation hurrr
         // 1. Require the v, tid, cid and t parameters (job of this class to validate)
         // 2. Require the specific *required* parameters per tracking entity (job of the entity to validate)

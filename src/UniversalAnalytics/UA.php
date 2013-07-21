@@ -158,17 +158,14 @@ class UA {
 /**************************************************************
 **************************************************************/
 
-    public function send(Entity $track=null)
+    public function track(Entity $track=null)
     {
         if( is_null($track) )
         {
             $track = $this->current;
         }
 
-        $request = new Request($this->attributes);
-        $response = $request->send($track);
-
-        return $response;
+        return new Request($this->attributes, $track);
     }
 
 }
