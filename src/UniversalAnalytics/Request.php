@@ -15,7 +15,15 @@ class Request implements ValidableInterface {
      *
      * @access protected
      */
-	protected $base = 'https://ssl.google-analytics.com/collect';
+	protected $base = 'http://www.google-analytics.com/collect';
+
+    /**
+     * Base URL for UA api - over SSL
+     *
+     * @access protected
+     */
+	protected $base_ssl = 'https://ssl.google-analytics.com/collect';
+	
 
     /**
      * Attributes commone to every request
@@ -62,10 +70,11 @@ class Request implements ValidableInterface {
      * Send request and generate response
      *
      * @param Entity
+     * @param Bool secure
      * @throws UniversalAnalytics\Exception\InvalidRequestException
      * @return Response
      */
-	public function send()
+	public function send($secure = true)
 	{
         if( $this->valid() === false )
         {
@@ -76,7 +85,8 @@ class Request implements ValidableInterface {
 
 		$buzzBrowser = new Browser;
         $buzzBrowser->setClient( new Curl );
-		$buzzResponse = $buzzBrowser->submit($this->base, $this->attributes, RequestInterface::METHOD_POST, array());
+        $base = $secure ? $this->base_ssl : $this->base;
+		$buzzResponse = $buzzBrowser->submit($base, $this->attributes, RequestInterface::METHOD_POST, array());
 
         return new Response($buzzResponse);
 	}
