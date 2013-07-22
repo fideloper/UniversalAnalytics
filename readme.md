@@ -1,6 +1,8 @@
 # Google Universal Analytics - Measurement Protocol
 
-Master: [![Build Status](https://travis-ci.org/fideloper/UniversalAnalytics.png?branch=master)](https://travis-ci.org/fideloper/UniversalAnalytics) | Develop: [![Build Status](https://travis-ci.org/fideloper/UniversalAnalytics.png?branch=develop)](https://travis-ci.org/fideloper/UniversalAnalytics)
+Master: [![Build Status](https://travis-ci.org/fideloper/UniversalAnalytics.png?branch=master)](https://travis-ci.org/fideloper/UniversalAnalytics)
+
+Develop: [![Build Status](https://travis-ci.org/fideloper/UniversalAnalytics.png?branch=develop)](https://travis-ci.org/fideloper/UniversalAnalytics)
 
 ---
 
