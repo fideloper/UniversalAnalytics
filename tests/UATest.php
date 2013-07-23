@@ -95,16 +95,24 @@ class UATest extends PHPUnit_Framework_TestCase {
 
 	public function testTrackReturnsRequest()
 	{
-		$ua = new UniversalAnalytics\UA;
+		$ua = new UniversalAnalytics\UA(array(
+			'v' => '1',
+	        'tid' => 'UX-ABCD-XYZ',
+	        'cid' => '555',
+		));
 
-		$request = $ua->track( new UniversalAnalytics\Track\Event );
+		$request = $ua->track( new UniversalAnalytics\Track\Page );
 
 		$this->assertInstanceOf('UniversalAnalytics\Request', $request);
 	}
 
 	public function testTrackGetsCurrent()
 	{
-		$ua = new UniversalAnalytics\UA;
+		$ua = new UniversalAnalytics\UA(array(
+			'v' => '1',
+	        'tid' => 'UX-ABCD-XYZ',
+	        'cid' => '555',
+	    ));
 
 		$request = $ua->page(array())->track();
 
