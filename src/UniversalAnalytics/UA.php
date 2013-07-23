@@ -8,8 +8,10 @@ use UniversalAnalytics\Track\CommerceItemHit;
 use UniversalAnalytics\Track\SocialInteraction;
 use UniversalAnalytics\Track\Exception;
 use UniversalAnalytics\Track\UserTiming;
+use UniversalAnalytics\Exception\InvalidRequestException;
+use UniversalAnalytics\Contracts\ValidableInterface;
 
-class UA {
+class UA implements ValidableInterface {
 
     /**
      * Current set entity
@@ -192,9 +194,42 @@ class UA {
         if( is_null($track) )
         {
             $track = $this->current;
+        } else {
+            $this->current = $track;
         }
 
-        return new Request($this->attributes, $track);
+        $this->build($track->toArray(true));
+
+        if( $this->valid() === false )
+        {
+            throw new InvalidRequestException('Invalid Request, ensure required fields are set');
+        }
+
+        return new Request($this->attributes);
+    }
+
+    /**
+     * Validate Request
+     *
+     * @return Bool
+     */
+    public function valid()
+    {
+        if( is_null($this->attributes['v'])
+            || is_null($this->attributes['tid'])
+            || is_null($this->attributes['cid']) )
+        {
+            return false;
+        }
+
+        // This will pass TRUE or FALSE
+        if( $this->current instanceof Entity )
+        {
+            return $this->current->valid();
+        }
+
+        // If no "current", then invalid
+        return false;
     }
 
 }

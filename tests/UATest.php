@@ -95,20 +95,54 @@ class UATest extends PHPUnit_Framework_TestCase {
 
 	public function testTrackReturnsRequest()
 	{
-		$ua = new UniversalAnalytics\UA;
+		$ua = new UniversalAnalytics\UA(array(
+			'v' => '1',
+	        'tid' => 'UX-ABCD-XYZ',
+	        'cid' => '555',
+		));
 
-		$request = $ua->track( new UniversalAnalytics\Track\Event );
+		$request = $ua->track( new UniversalAnalytics\Track\Page );
 
 		$this->assertInstanceOf('UniversalAnalytics\Request', $request);
 	}
 
 	public function testTrackGetsCurrent()
 	{
-		$ua = new UniversalAnalytics\UA;
+		$ua = new UniversalAnalytics\UA(array(
+			'v' => '1',
+	        'tid' => 'UX-ABCD-XYZ',
+	        'cid' => '555',
+	    ));
 
 		$request = $ua->page(array())->track();
 
 		$this->assertInstanceOf('UniversalAnalytics\Track\Page', $ua->current());
+	}
+
+	/**
+     * @expectedException UniversalAnalytics\Exception\InvalidRequestException
+     */
+	public function testValidatesEntityNoCoreAttribs()
+	{
+		// No core attributes
+		$ua = new UniversalAnalytics\UA;
+
+		$request = $ua->track( new UniversalAnalytics\Track\Page );
+	}
+
+	/**
+     * @expectedException UniversalAnalytics\Exception\InvalidRequestException
+     */
+	public function testUAValidatesEntityNoEntityAttribs()
+	{
+		$ua = new UniversalAnalytics\UA(array(
+			'v' => '1',
+	        'tid' => 'UX-ABCD-XYZ',
+	        'cid' => '555',
+	    ));
+
+		// Event requires 2 attributes
+		$request = $ua->track( new UniversalAnalytics\Track\Event );
 	}
 
 }
