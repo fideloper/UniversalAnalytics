@@ -34,6 +34,25 @@ class EventTest extends PHPUnit_Framework_TestCase {
 		$this->assertEquals('0', $entity->value);
 	}
 
+	public function testGoogleAttributes()
+    {
+        $data = array(
+			'category' => 'Video',
+	        'action' => 'play',
+	        'label' => 'Cat Video',
+	        'value' => '0',
+		);
+
+        $entity = new UniversalAnalytics\Track\Event($data);
+
+        $googleAttr = $entity->toArray(true);
+
+        $this->assertEquals('Video', $googleAttr['ec']);
+		$this->assertEquals('play', $googleAttr['ea']);
+		$this->assertEquals('Cat Video', $googleAttr['el']);
+		$this->assertEquals('0', $googleAttr['ev']);
+    }
+
 	/**
      * @expectedException UniversalAnalytics\Exception\InvalidAttributeException
      */
