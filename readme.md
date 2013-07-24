@@ -72,7 +72,7 @@ $request = $ua->event(array(
 $response = $request->send();
 ```
 
-## Laravel 4
+## IoC Container 
 
 ### Binding to your app
 
@@ -116,9 +116,6 @@ $request = $ua->event(array(
 $response = $request->send();
 ```
 
-### Using the Laravel Facade
-
-Implementation coming soon
 
 ## Notes
 
