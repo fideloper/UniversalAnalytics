@@ -36,9 +36,7 @@
         
         <h2>Basic Usage</h2>
         <p>As shown in the repository README, the basic usage would go something like this:</p>
-<pre><?php
-
-$ua = new \UniversalAnalytics\UA(array(
+<pre>$ua = new \UniversalAnalytics\UA(array(
     'v' => 1,
     'tid' => 'UX-XXXX-XXX',
     'cid' => 555,
@@ -82,9 +80,7 @@ $response = $request->send();</pre>
         </ul>
         
         <h3>eCommerce Item</h3>
-<pre><?php
-
-$ua = new \UniversalAnalytics\UA(...);
+<pre>$ua = new \UniversalAnalytics\UA(...);
 
 $item = new \UniversalAnalytics\Track\CommerceItemHit;
 $item->id = '123456789';  // Transaction ID, REQUIRED
