@@ -46,30 +46,30 @@ class CommerceItemHitTest extends PHPUnit_Framework_TestCase {
 		$this->assertEquals('US', $entity->currency_code);
 	}
 
-        public function testGoogleAttributes()
-        {
-             $data = array(
-                     'id' => '1',
-                     "name" => 'sofa',
-                     "price" => '9.99',
-                     "quantity" => '3',
-                     "code" => '1234',
-                     "variation" => 'blue',
-                     "currency_code" => 'US',
-             );
+    public function testGoogleAttributes()
+    {
+         $data = array(
+                 'id' => '1',
+                 "name" => 'sofa',
+                 "price" => '9.99',
+                 "quantity" => '3',
+                 "code" => '1234',
+                 "variation" => 'blue',
+                 "currency_code" => 'US',
+         );
 
-             $entity = new UniversalAnalytics\Track\CommerceItemHit($data);
+         $entity = new UniversalAnalytics\Track\CommerceItemHit($data);
 
-             $googleAttr = $entity->toArray(true);
-             
-             $this->assertEquals('1', $googleAttr['ti']);
-             $this->assertEquals('sofa', $googleAttr['in']);
-             $this->assertEquals('9.99', $googleAttr['ip']);
-             $this->assertEquals('3', $googleAttr['iq']);
-             $this->assertEquals('1234', $googleAttr['ic']);
-             $this->assertEquals('blue', $googleAttr['iv']);
-             $this->assertEquals('US', $googleAttr['cu']);
-        }
+         $googleAttr = $entity->toArray(true);
+
+         $this->assertEquals('1', $googleAttr['ti']);
+         $this->assertEquals('sofa', $googleAttr['in']);
+         $this->assertEquals('9.99', $googleAttr['ip']);
+         $this->assertEquals('3', $googleAttr['iq']);
+         $this->assertEquals('1234', $googleAttr['ic']);
+         $this->assertEquals('blue', $googleAttr['iv']);
+         $this->assertEquals('US', $googleAttr['cu']);
+    }
 
 	/**
      * @expectedException UniversalAnalytics\Exception\InvalidAttributeException

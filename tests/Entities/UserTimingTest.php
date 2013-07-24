@@ -26,7 +26,7 @@ class UserTimingTest extends PHPUnit_Framework_TestCase {
 	        'time' => '1500',
 	        'label' => 'jQuery',
 		);
-		
+
 		$entity = new UniversalAnalytics\Track\UserTiming($data);
 
 		$this->assertEquals('loadjs', $entity->category);
@@ -34,6 +34,25 @@ class UserTimingTest extends PHPUnit_Framework_TestCase {
 		$this->assertEquals('1500', $entity->time);
 		$this->assertEquals('jQuery', $entity->label);
 	}
+
+	public function testGoogleAttributes()
+    {
+        $data = array(
+			'category' => 'loadjs',
+	        'variable' => 'curlLoader',
+	        'time' => '1500',
+	        'label' => 'jQuery',
+		);
+
+        $entity = new UniversalAnalytics\Track\UserTiming($data);
+
+        $googleAttr = $entity->toArray(true);
+
+        $this->assertEquals('loadjs', $googleAttr['utc']);
+		$this->assertEquals('curlLoader', $googleAttr['utv']);
+		$this->assertEquals('1500', $googleAttr['utt']);
+		$this->assertEquals('jQuery', $googleAttr['utl']);
+    }
 
 	/**
      * @expectedException UniversalAnalytics\Exception\InvalidAttributeException
