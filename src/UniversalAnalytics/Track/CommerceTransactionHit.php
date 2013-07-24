@@ -1,8 +1,6 @@
 <?php namespace UniversalAnalytics\Track;
 
-use UniversalAnalytics\Contracts\ValidableInterface;
-
-class CommerceTransactionHit extends Entity implements ValidableInterface {
+class CommerceTransactionHit extends Entity {
 
     protected $shortName = 'commercetrans';
 
@@ -26,14 +24,8 @@ class CommerceTransactionHit extends Entity implements ValidableInterface {
         'cu' => null,
     );
 
-    public function valid()
-    {
-        if( is_null($this->id) )
-        {
-            return false;
-        }
-
-        return true;
-    }
+    protected $required = array(
+        'ti',
+    );
 
 }
