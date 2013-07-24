@@ -23,13 +23,30 @@ class PageTest extends PHPUnit_Framework_TestCase {
 	        'page' => '/tags/laravel',
 	        'title' => 'Laravel',
 		);
-		
+
 		$entity = new UniversalAnalytics\Track\Page($data);
 
 		$this->assertEquals('fideloper.com', $entity->hostname);
 		$this->assertEquals('/tags/laravel', $entity->page);
 		$this->assertEquals('Laravel', $entity->title);
 	}
+
+	public function testGoogleAttributes()
+    {
+        $data = array(
+			'hostname' => 'fideloper.com',
+	        'page' => '/tags/laravel',
+	        'title' => 'Laravel',
+		);
+
+        $entity = new UniversalAnalytics\Track\Page($data);
+
+        $googleAttr = $entity->toArray(true);
+
+        $this->assertEquals('fideloper.com', $googleAttr['dh']);
+		$this->assertEquals('/tags/laravel', $googleAttr['dp']);
+		$this->assertEquals('Laravel', $googleAttr['dt']);
+    }
 
 	/**
      * @expectedException UniversalAnalytics\Exception\InvalidAttributeException

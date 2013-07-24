@@ -20,12 +20,27 @@ class ExceptionTest extends PHPUnit_Framework_TestCase {
 			'description' => 'RuntimeException',
 	        'fatal' => '1',
 		);
-		
+
 		$entity = new UniversalAnalytics\Track\Exception($data);
 
 		$this->assertEquals('RuntimeException', $entity->description);
 		$this->assertEquals('1', $entity->fatal);
 	}
+
+	public function testGoogleAttributes()
+    {
+        $data = array(
+			'description' => 'RuntimeException',
+	        'fatal' => '1',
+		);
+
+        $entity = new UniversalAnalytics\Track\Exception($data);
+
+        $googleAttr = $entity->toArray(true);
+
+        $this->assertEquals('RuntimeException', $googleAttr['exd']);
+		$this->assertEquals('1', $googleAttr['exf']);
+    }
 
 	/**
      * @expectedException UniversalAnalytics\Exception\InvalidAttributeException

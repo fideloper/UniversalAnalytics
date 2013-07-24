@@ -42,6 +42,29 @@ class CommerceTransactionHitTest extends PHPUnit_Framework_TestCase {
 		$this->assertEquals('US', $entity->currency_code);
 	}
 
+	public function testGoogleAttributes()
+    {
+        $data = array(
+            'id' => '2',
+	        'affiliation' => 'product',
+	        'revenue' => '5.99',
+	        'shipping' => '2.99',
+	        'tax' => '1.99',
+	        'currency_code' => 'US',
+        );
+
+        $entity = new UniversalAnalytics\Track\CommerceTransactionHit($data);
+
+        $googleAttr = $entity->toArray(true);
+
+        $this->assertEquals('2', $googleAttr['ti']);
+		$this->assertEquals('product', $googleAttr['ta']);
+		$this->assertEquals('5.99', $googleAttr['tr']);
+		$this->assertEquals('2.99', $googleAttr['ts']);
+		$this->assertEquals('1.99', $googleAttr['tt']);
+		$this->assertEquals('US', $googleAttr['cu']);
+    }
+
 	/**
      * @expectedException UniversalAnalytics\Exception\InvalidAttributeException
      */

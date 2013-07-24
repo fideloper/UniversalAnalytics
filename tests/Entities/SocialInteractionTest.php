@@ -23,13 +23,30 @@ class SocialInteractionTest extends PHPUnit_Framework_TestCase {
 	        'network' => 'twitter',
 	        'target' => 'http://fideloper.com/tags/laravel',
 		);
-		
+
 		$entity = new UniversalAnalytics\Track\SocialInteraction($data);
 
 		$this->assertEquals('like', $entity->action);
 		$this->assertEquals('twitter', $entity->network);
 		$this->assertEquals('http://fideloper.com/tags/laravel', $entity->target);
 	}
+
+	public function testGoogleAttributes()
+    {
+        $data = array(
+			'action' => 'like',
+	        'network' => 'twitter',
+	        'target' => 'http://fideloper.com/tags/laravel',
+		);
+
+        $entity = new UniversalAnalytics\Track\SocialInteraction($data);
+
+        $googleAttr = $entity->toArray(true);
+
+        $this->assertEquals('like', $googleAttr['sa']);
+		$this->assertEquals('twitter', $googleAttr['sn']);
+		$this->assertEquals('http://fideloper.com/tags/laravel', $googleAttr['st']);
+    }
 
 	/**
      * @expectedException UniversalAnalytics\Exception\InvalidAttributeException

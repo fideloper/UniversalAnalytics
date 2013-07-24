@@ -72,7 +72,7 @@ $request = $ua->event(array(
 $response = $request->send();
 ```
 
-## Laravel 4
+## IoC Container
 
 ### Binding to your app
 
@@ -116,12 +116,8 @@ $request = $ua->event(array(
 $response = $request->send();
 ```
 
-### Using the Laravel Facade
-
-Implementation coming soon
 
 ## Notes
 
 1. Make "required" functionality less manual with a "required attributes" array which can be used to check if required fields are non-null values. `Entity::valid()` can then be added to abstract class.
 2. Request should have requester interface with Buzz implementation, for testing/maintainability.
-3. Test Google attributes being set correctly within entities
