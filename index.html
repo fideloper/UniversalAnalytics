@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset='utf-8' />
+    <meta http-equiv="X-UA-Compatible" content="chrome=1" />
+    <meta name="description" content="Universal Analytics : PHP Implementation of Google's Measurement Protocol" />
+
+    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
+
+    <title>Universal Analytics</title>
+  </head>
+
+  <body>
+
+    <!-- HEADER -->
+    <div id="header_wrap" class="outer">
+        <header class="inner">
+          <a id="forkme_banner" href="https://github.com/fideloper/UniversalAnalytics">View on GitHub</a>
+
+          <h1 id="project_title">Universal Analytics</h1>
+          <h2 id="project_tagline">PHP Implementation of Google's Measurement Protocol</h2>
+
+            <section id="downloads">
+              <a class="zip_download_link" href="https://github.com/fideloper/UniversalAnalytics/zipball/master">Download this project as a .zip file</a>
+              <a class="tar_download_link" href="https://github.com/fideloper/UniversalAnalytics/tarball/master">Download this project as a tar.gz file</a>
+            </section>
+        </header>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div id="main_content_wrap" class="outer">
+      <section id="main_content" class="inner">
+        <h1>
+<a name="google-universal-analytics---measurement-protocol" class="anchor" href="#google-universal-analytics---measurement-protocol"><span class="octicon octicon-link"></span></a>Google Universal Analytics - Measurement Protocol</h1>
+
+<p>This implements Google's <a href="https://developers.google.com/analytics/devguides/collection/protocol/v1/">Measurement Protocol</a>. This protocol is a REST api which you can use to send data from your client or server side.</p>
+
+<p>This is a server-side implementation, which you might want to use to send analytics to Google that's related to your application - server metrics, exception tracking, etc.</p>
+
+<p>Google developer docs can be found <a href="https://developers.google.com/analytics/devguides/collection/protocol/v1/devguide">here</a>.</p>
+
+<h2>
+<a name="install" class="anchor" href="#install"><span class="octicon octicon-link"></span></a>Install</h2>
+
+<p>This is available via Packagist. You can install this by adding a dependency in your <code>composer.json</code> file.</p>
+
+<div class="highlight"><pre><span class="p">{</span>
+    <span class="nt">"require"</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">"fideloper/universalanalytics"</span><span class="p">:</span> <span class="s2">"dev-master"</span>
+    <span class="p">},</span>
+<span class="p">}</span>
+</pre></div>
+
+<p>Then run:</p>
+
+<pre><code>$ composer install  # or composer update
+</code></pre>
+
+<p><strong>Note:</strong> Composer will now <a href="http://seld.be/notes/composer-installing-require-dev-by-default">install the dev dependencies by default</a>. For this project, those are <a href="https://github.com/sebastianbergmann/phpunit/">phpunit</a> and <a href="https://github.com/padraic/mockery">mockery</a>.</p>
+
+<h2>
+<a name="basic-usage" class="anchor" href="#basic-usage"><span class="octicon octicon-link"></span></a>Basic Usage</h2>
+
+<p>Here is some basic usage:</p>
+
+<div class="highlight"><pre><span class="o">&lt;?</span><span class="nx">php</span>
+
+<span class="nv">$ua</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">\UniversalAnalytics\UA</span><span class="p">(</span><span class="k">array</span><span class="p">(</span>
+    <span class="s1">'v'</span> <span class="o">=&gt;</span> <span class="mi">1</span><span class="p">,</span>
+    <span class="s1">'tid'</span> <span class="o">=&gt;</span> <span class="s1">'UX-XXXX-XXX'</span><span class="p">,</span>
+    <span class="s1">'cid'</span> <span class="o">=&gt;</span> <span class="mi">555</span><span class="p">,</span>
+<span class="p">));</span>
+
+<span class="nv">$event</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">\UniversalAnalytics\Track\Event</span><span class="p">;</span>
+<span class="nv">$event</span><span class="o">-&gt;</span><span class="na">category</span> <span class="o">=</span> <span class="s1">'Video'</span><span class="p">;</span>
+<span class="nv">$event</span><span class="o">-&gt;</span><span class="na">action</span> <span class="o">=</span> <span class="s1">'Play'</span><span class="p">;</span>
+<span class="nv">$event</span><span class="o">-&gt;</span><span class="na">label</span> <span class="o">=</span> <span class="s1">'Cat Video 42'</span><span class="p">;</span>
+<span class="nv">$event</span><span class="o">-&gt;</span><span class="na">value</span> <span class="o">=</span> <span class="s1">'0'</span><span class="p">;</span>
+
+<span class="nv">$request</span> <span class="o">=</span> <span class="nv">$ua</span><span class="o">-&gt;</span><span class="na">track</span><span class="p">(</span><span class="nv">$event</span><span class="p">);</span>
+<span class="nv">$response</span> <span class="o">=</span> <span class="nv">$request</span><span class="o">-&gt;</span><span class="na">send</span><span class="p">();</span>
+</pre></div>
+
+<p>Alternatively, there's a slightly easier implementation:</p>
+
+<div class="highlight"><pre><span class="nv">$ua</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">\UniversalAnalytics\UA</span><span class="p">(</span><span class="k">array</span><span class="p">(</span>
+    <span class="s1">'v'</span> <span class="o">=&gt;</span> <span class="mi">1</span><span class="p">,</span>
+    <span class="s1">'tid'</span> <span class="o">=&gt;</span> <span class="s1">'UX-XXXX-XXX'</span><span class="p">,</span>
+    <span class="s1">'cid'</span> <span class="o">=&gt;</span> <span class="mi">555</span><span class="p">,</span>
+<span class="p">));</span>
+
+<span class="nv">$request</span> <span class="o">=</span> <span class="nv">$ua</span><span class="o">-&gt;</span><span class="na">event</span><span class="p">(</span><span class="k">array</span><span class="p">(</span>
+    <span class="s1">'category'</span> <span class="o">=&gt;</span> <span class="s1">'Video'</span><span class="p">,</span>
+    <span class="s1">'action'</span> <span class="o">=&gt;</span> <span class="s1">'Play'</span><span class="p">,</span>
+    <span class="s1">'label'</span> <span class="o">=&gt;</span> <span class="s1">'Cat Video 42'</span><span class="p">,</span>
+    <span class="s1">'value'</span> <span class="o">=&gt;</span> <span class="s1">'0'</span><span class="p">,</span>
+<span class="p">))</span><span class="o">-&gt;</span><span class="na">track</span><span class="p">();</span>
+
+<span class="nv">$response</span> <span class="o">=</span> <span class="nv">$request</span><span class="o">-&gt;</span><span class="na">send</span><span class="p">();</span>
+</pre></div>
+      </section>
+    </div>
+
+    <!-- FOOTER  -->
+    <div id="footer_wrap" class="outer">
+      <footer class="inner">
+        <p class="copyright">Universal Analytics maintained by <a href="https://github.com/fideloper">fideloper</a></p>
+        <p>Published with <a href="http://pages.github.com">GitHub Pages</a></p>
+      </footer>
+    </div>
+
+    
+
+  </body>
+</html>
