@@ -36,7 +36,8 @@
         
         <h2>Basic Usage</h2>
         <p>As shown in the repository README, the basic usage would go something like this:</p>
-<pre>$ua = new \UniversalAnalytics\UA(array(
+        
+<pre><code>$ua = new \UniversalAnalytics\UA(array(
     'v' => 1,
     'tid' => 'UX-XXXX-XXX',
     'cid' => 555,
@@ -49,10 +50,10 @@ $event->label = 'Cat Video 42';
 $event->value = '0';
 
 $request = $ua->track($event);
-$response = $request->send();</pre>
+$response = $request->send();</code></pre>
 
         <p>Alternatively, each tracked "entity" (such as a Page view, Event, or Transaction) has a "shortcut" method:</p>
-<pre>$ua = new \UniversalAnalytics\UA(array(
+<pre><code>$ua = new \UniversalAnalytics\UA(array(
     'v' => 1,
     'tid' => 'UX-XXXX-XXX',
     'cid' => 555,
@@ -65,7 +66,7 @@ $request = $ua->event(array(
     'value' => '0',
 ))->track();
 
-$response = $request->send();</pre>
+$response = $request->send();</code></pre>
 
         <h2>Tracking Entities</h2>
         <p>The following entities are included in this library for tracking:</p>
@@ -80,7 +81,7 @@ $response = $request->send();</pre>
         </ul>
         
         <h3>eCommerce Item</h3>
-<pre>$ua = new \UniversalAnalytics\UA(...);
+<pre><code>$ua = new \UniversalAnalytics\UA(...);
 
 $item = new \UniversalAnalytics\Track\CommerceItemHit;
 $item->id = '123456789';  // Transaction ID, REQUIRED
@@ -92,10 +93,10 @@ $item->variation = 'blue';
 $item->currency_code = 'USD';
 
 $request = $ua->track($item);
-$response = $request->send();</pre>        
+$response = $request->send();</code></pre>        
 
         <p>Alternatively:</p>
-<pre>$ua = new \UniversalAnalytics\UA(...);
+<pre><code>$ua = new \UniversalAnalytics\UA(...);
 
 $request = $ua->item(array(
     'id' => '123456789', // Transaction ID, REQUIRED
@@ -107,7 +108,7 @@ $request = $ua->item(array(
     'currency_code' => 'USD',
 ))->track();
 
-$response = $request->send();</pre>        
+$response = $request->send();</code></pre>        
       </section>
     </div>
 
