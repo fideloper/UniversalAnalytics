@@ -2,9 +2,10 @@
 
 use UniversalAnalytics\Contracts\JsonableInterface;
 use UniversalAnalytics\Contracts\ArrayableInterface;
+use UniversalAnalytics\Contracts\ValidableInterface;
 use UniversalAnalytics\Exception\InvalidAttributeException;
 
-abstract class Entity implements ArrayableInterface, JsonableInterface {
+abstract class Entity implements ArrayableInterface, JsonableInterface, ValidableInterface {
 
     /**
      * Shortname for differentiating in Attribute Map
@@ -29,6 +30,21 @@ abstract class Entity implements ArrayableInterface, JsonableInterface {
      */
     protected $googleAttributes = array();
 
+    /**
+     * Required attributes
+     * Use Google attributes
+     *  rather than "human" ones
+     *
+     * @access protected
+     */
+    protected $required = array();
+
+    /**
+     * All attributes mapping
+     * for "human" to "robot" attribute mapping
+     *
+     * @access protected
+     */
     protected $attributeMap = array(
         'type' => 't',
 
@@ -137,6 +153,20 @@ abstract class Entity implements ArrayableInterface, JsonableInterface {
         } else {
             throw new InvalidAttributeException('Invalid attribute "'.$key.'" passed to '.get_class($this).'.');
         }
+    }
+
+    public function valid()
+    {
+        foreach( $this->required as $key )
+        {
+            // If not set or is null, it's invalid, based on required attributes
+            if( !isset($this->googleAttributes[$key]) || is_null($this->googleAttributes[$key]))
+            {
+                return false;
+            }
+        }
+
+        return true;
     }
 
     /**

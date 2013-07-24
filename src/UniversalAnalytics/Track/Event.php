@@ -1,8 +1,6 @@
 <?php namespace UniversalAnalytics\Track;
 
-use UniversalAnalytics\Contracts\ValidableInterface;
-
-class Event extends Entity implements ValidableInterface  {
+class Event extends Entity {
 
     protected $shortName = 'event';
 
@@ -22,14 +20,9 @@ class Event extends Entity implements ValidableInterface  {
         'ev' => null,
     );
 
-    public function valid()
-    {
-        if( is_null($this->category) || is_null($this->action) )
-        {
-            return false;
-        }
-
-        return true;
-    }
+    protected $required = array(
+        'ec',
+        'ea',
+    );
 
 }

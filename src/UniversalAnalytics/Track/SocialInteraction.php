@@ -1,8 +1,6 @@
 <?php namespace UniversalAnalytics\Track;
 
-use UniversalAnalytics\Contracts\ValidableInterface;
-
-class SocialInteraction extends Entity implements ValidableInterface {
+class SocialInteraction extends Entity {
 
     protected $shortName = 'social';
 
@@ -20,14 +18,10 @@ class SocialInteraction extends Entity implements ValidableInterface {
         'st' => null, /* Required */
     );
 
-    public function valid()
-    {
-        if( is_null($this->action) || is_null($this->network) || is_null($this->target) )
-        {
-            return false;
-        }
-
-        return true;
-    }
+    protected $required = array(
+        'sa',
+        'sn',
+        'st',
+    );
 
 }
