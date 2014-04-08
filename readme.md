@@ -104,7 +104,7 @@ App::bind('ua', function() {
 
 $ua = App::make('ua');
 
-$ua->client(Auth::user()->id); // Pass in some sort of session-based user id
+$ua->clientid(Auth::user()->id); // Pass in some sort of session-based user id
 
 $request = $ua->event(array(
     'category' => 'Video',
