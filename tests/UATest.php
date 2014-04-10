@@ -9,12 +9,14 @@ class UATest extends PHPUnit_Framework_TestCase {
 	        'tid' => 'UX-ABCD-XYZ',
 	        'cid' => '555',
 		);
+		$user_agent_string = 'Mozilla/5.0 (Windows NT 6.1; WOW64; rv:28.0) Gecko/20100101 Firefox/28.0';
 
-		$ua = new UniversalAnalytics\UA($attributes);
+		$ua = new UniversalAnalytics\UA($attributes, $user_agent_string);
 
 		$this->assertEquals('1', $ua->version());
 		$this->assertEquals('UX-ABCD-XYZ', $ua->trackingid());
 		$this->assertEquals('555', $ua->clientid());
+		$this->assertEquals('Mozilla/5.0 (Windows NT 6.1; WOW64; rv:28.0) Gecko/20100101 Firefox/28.0', $ua->useragent());
 	}
 
 	public function testGetSetAttributes()
@@ -24,10 +26,12 @@ class UATest extends PHPUnit_Framework_TestCase {
 		$ua->version('1');
 		$ua->trackingid('UX-ABCD-XYZ');
 		$ua->clientid('555');
+		$ua->useragent('Mozilla/5.0 (Windows NT 6.1; WOW64; rv:28.0) Gecko/20100101 Firefox/28.0');
 
 		$this->assertEquals('1', $ua->version());
 		$this->assertEquals('UX-ABCD-XYZ', $ua->trackingid());
 		$this->assertEquals('555', $ua->clientid());
+		$this->assertEquals('Mozilla/5.0 (Windows NT 6.1; WOW64; rv:28.0) Gecko/20100101 Firefox/28.0', $ua->useragent());
 	}
 
 	public function testCommerceItemHitEntity()
