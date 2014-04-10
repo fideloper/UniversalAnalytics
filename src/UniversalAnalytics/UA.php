@@ -32,11 +32,25 @@ class UA implements ValidableInterface {
         'cid' => null,
     );
 
-    public function __construct(Array $attributes=null)
+    /**
+     * User Agent String to use
+     * See getters/setters below
+     *
+     * @access protected
+     */
+    protected $user_agent_string;
+
+
+    public function __construct(Array $attributes=null, $user_agent_string = null)
     {
         if( is_null($attributes) === false )
         {
             $this->build($attributes);
+        }
+
+        if( is_null($user_agent_string) === false )
+        {
+            $this->user_agent_string = $user_agent_string;
         }
     }
 
@@ -128,6 +142,24 @@ class UA implements ValidableInterface {
         return $this;
     }
 
+    /**
+     * Get or Set the User Agent
+     *
+     * @param String    User Agent
+     * @return UniversalAnalytics\UA
+     */
+    public function useragent($user_agent_string=null)
+    {
+        if( is_null($user_agent_string) )
+        {
+            return $this->user_agent_string;
+        }
+
+        $this->user_agent_string = $user_agent_string;
+
+        return $this;
+    }
+
 /**************************************************************
 **************************************************************/
 
@@ -205,7 +237,7 @@ class UA implements ValidableInterface {
             throw new InvalidRequestException('Invalid Request, ensure required fields are set');
         }
 
-        return new Request($this->attributes);
+        return new Request($this->attributes, $this->user_agent_string);
     }
 
     /**

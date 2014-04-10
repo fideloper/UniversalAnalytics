@@ -35,6 +35,14 @@ class Request {
     );
 
     /**
+     * User Agent String to use
+     * See getters/setters below
+     *
+     * @access protected
+     */
+    protected $user_agent_string;
+
+    /**
      * UniversalAnalytics\Track\Entity
      *
      * @access protected
@@ -42,9 +50,14 @@ class Request {
     protected $entity;
 
 
-    public function __construct(Array $attributes)
+    public function __construct(Array $attributes, $user_agent_string = null)
     {
         $this->build($attributes);
+
+        if( is_null($user_agent_string) === false )
+        {
+            $this->user_agent_string = $user_agent_string;
+        }
     }
 
     /**
@@ -72,10 +85,14 @@ class Request {
      */
 	public function send($secure = true)
 	{
+        $headers = array();
+        if( is_null($this->user_agent_string) === false )
+            $headers['User-Agent'] = $this->user_agent_string;
+
 		$buzzBrowser = new Browser;
         $buzzBrowser->setClient( new Curl );
         $base = $secure ? $this->base_ssl : $this->base;
-		$buzzResponse = $buzzBrowser->submit($base, $this->attributes, RequestInterface::METHOD_POST, array());
+		$buzzResponse = $buzzBrowser->submit($base, $this->attributes, RequestInterface::METHOD_POST, $headers);
 
         return new Response($buzzResponse);
 	}
